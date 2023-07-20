@@ -1,0 +1,14 @@
+.outer-form-div-register{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.evaluate-button{
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin-top: 20px;
+}
+
