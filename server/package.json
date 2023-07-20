@@ -1,0 +1,28 @@
+{
+  "name": "tvs-credit-it-challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "Harsh Gupta",
+  "license": "ISC",
+  "dependencies": {
+    "aws-sdk": "^2.1244.0",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.1",
+    "boto3": "^0.0.1",
+    "chromaprint": "^0.1.0",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-fileupload": "^1.4.0",
+    "fpcalc": "^1.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.6.5",
+    "nodemon": "^2.0.20",
+    "request-promise": "^4.2.6"
+  }
+}
