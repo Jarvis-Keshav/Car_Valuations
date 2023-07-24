@@ -154,7 +154,7 @@ print(similarity2)
 
 Finally the second hand price will be evaluated using a valuation equation:
 ```js
-js Y2=(old_price-((x1*yo)+(x2*ow)+(x3*lo)+(x4*km)+(x5*(1-image_sc))+(x6*(1-audio_sc))))
+New_price=(old_price-((x1*yo)+(x2*ow)+(x3*lo)+(x4*km)+(x5*(1-image_sc))+(x6*(1-audio_sc))))
 ```
 where each coffecient is assigned weights according to how much influnce does it have on the vehicles wear n tear. (image_sc and audio_sc tells how similar images and audio are in comparison to user data, therefore 1-is done to get the dissimilarity)
 
