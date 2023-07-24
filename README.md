@@ -2,12 +2,12 @@
 
 This project was made in collaboration with @HarshGupta02 (https://github.com/HarshGupta02) for tvs_it_challenge hackathon
 
-In this we were suppsed to automate the entire evaluation process of used automobiles such that no human intervention would be required in between.
+In this we were supposed to automate the entire evaluation process of used automobiles such that no human intervention would be required in between.
 For that we devided our project into client side and server side.
 
 ## Installation
 
-Since ml part is done on colab most of libraries will be pre-installed, here are few which still needs to be included  
+Since ml part is done on colab most of libraries were be pre-installed, here are few which still needs to be included  
 
 ```js
 1. pip install pyacoustid
@@ -28,21 +28,21 @@ Since ml part is done on colab most of libraries will be pre-installed, here are
 
 ## Client Side
 
-This is basically the frontend of our website where client/user will enter all the information regarding his vehicle like Brand,Year,Model_name,Ownershipn and Location and then to make the evaluation even better we asked users to enter their vehicle's accelerating and deaccelerating sounds and its 4 sided view for audio and image comparison as well
+This is basically the frontend of our website where client/user will enter all the information regarding his vehicle like Brand,Year,Model_name,Ownership and Location and then to make the evaluation process to be precise we asked users to enter their vehicle's accelerating and deaccelerating sounds and its 4 sided view for audio and image comparison as well
 
 ![WhatsApp Image 2023-07-24 at 17 38 35](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/f4661e72-fc08-4132-b09b-62573a869aac)
 
 ## Server Side
 
-This is where all the comparisons are done in the backendand and score generated will be shown in the fronted. It heppens in few stpes:
+This is where all the comparisons are done in the backend and score generated will be shown in the fronted. It heppens in few stpes:
 
 ### Image Comparison
-For image comparison, images provided by the user will be located in the database by their brand_model name and 4-sided view comparisomn will be done with the original(new) pics of that brand_model using orb and structural similarity. Score for each view comparison will be generated and avg of them is taken.
+For image comparison, images provided by the user will be located in the database by their brand_model name and 4-sided view comparison will be done with the original(new) pics of that brand_model using orb and structural similarity. Score for each view comparison will be generated and avg of them is taken.
 
 ![image](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/81a30d51-3c8c-4b52-87e6-e0f18e8c3b5b)
 
 
-This portion shows the orb and structural similarity functions used later in code for genertingscore based comparison
+This portion shows the orb and structural similarity functions used later in code for generting score based comparison
 
 ```js
 def orb_sim(img1, img2):
@@ -66,7 +66,7 @@ def structural_sim(img1, img2):
 
 #### Below snippets shows the comparison of front view and similar is repeated for all 3 remaining side views
 
-Here same image file is being searched in datebase using brand_model (here file is that speific brand_model name)
+Here same image file is being searched in database using brand_model (here file is that speific brand_model name)
 
 ```js
 for filen in os.listdir("drive/MyDrive/Image_org/Front_view/"):
@@ -110,13 +110,13 @@ with open('drive/MyDrive/Image_output/Front_score/out.txt', 'w') as f:
 
 ### Audio Comparison
 
-Similarly, audio file matching the name(brand_model) will be searched in the database for both accelerating and deaccelerating audio, comparison will be done using audio fingerprinting (implemented using chromprint) and score for each comparison will be generated. Avarage for both the scores will be taken
+Similarly, audio file matching the name(brand_model) will be searched in the database for both accelerating and deaccelerating audio, comparison will be done using audio fingerprinting (implemented using chromaprint) and score for each comparison will be generated. Avarage for both the scores will be taken
 
 ![image](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/f485b2b3-1f50-4fa1-8512-ef9e504b69ed)
 
 
 
-Aduio finger printing is done here
+Audio finger printing is done here
 
 ```js
 import acoustid
@@ -143,7 +143,7 @@ bitmap2 = np.transpose(np.array([[b == '1' for b in list('{:32b}'.format(i & 0xf
 plt.imshow(bitmap2)
 ```
 
-Fuzz ratio is used for generating a score based similarity
+Fuzz ratio is used for generating score based similarity
 
 ```js
 similarity2 = fuzz.ratio(fingerprint3, fingerprint4)
@@ -156,15 +156,14 @@ Finally the second hand price will be evaluated using a valuation equation:
 ```js
 New_price=(old_price-((x1*yo)+(x2*ow)+(x3*lo)+(x4*km)+(x5*(1-image_sc))+(x6*(1-audio_sc))))
 ```
-where each coffecient is assigned weights according to how much influnce does it have on the vehicles wear n tear. (image_sc and audio_sc tells how similar images and audio are in comparison to user data, therefore 1-is done to get the dissimilarity)
+where each coffecient is assigned weights according to how much influnce does it have on the vehicles wear n tear. (image_sc and audio_sc tells how similar images and audio are in comparison to user data, therefore 1- is done to get the dissimilarity)
 
 ![image](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/b9a2f35e-6bbe-438e-870d-9dfad06ba231)
 
 
 ## Training the Model
 
-Now we want our model to predict this score even faster, i.e to avoid equation computaion time we'll train our data on ml(XGBoost) model. So once our databe has a minimum of 1000 enteries(model has generated output for atleast 1000 user's vehicle) then automatically our model will start using our XGBoost model but since 
-our project was on the testing phase we generated synthetic samples using smote func.
+Now we want our model to predict this score even faster, i.e to avoid equation computations time. So we'll train our data on ml(XGBoost) model, once our databe has a minimum of 1000 enteries(model has generated output for atleast 1000 user's vehicle) then automatically our model will start using our XGBoost model but since our project was on the testing phase, we generated synthetic samples using SMOTE func.
 
 ![image](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/0a7b2922-bed4-4557-9775-323a38dd87e5)
 
@@ -214,6 +213,6 @@ fd = fd.to_numpy()
 new_data = SMOTE(fd,10000,10)
 ```
 
-Once a sufficent amount of synthetic samples were generated our model successfully executed the shift from scoring to predicting the score through ml model and generated a price almost similar to the one generated through non ml model
+Once a sufficent amount of synthetic samples were generated our model successfully executes the shift from scoring to predicting the score through ml model and generated a price almost similar to the one generated through non ml model
 
 
