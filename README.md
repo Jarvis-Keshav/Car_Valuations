@@ -109,6 +109,7 @@ with open('drive/MyDrive/Image_output/Front_score/out.txt', 'w') as f:
 ```
 
 ### Audio Comparison
+
 Similarly, audio file matching the name(brand_model) will be searched in the database for both accelerating and deaccelerating audio, comparison will be done using audio fingerprinting (implemented using chromprint) and score for each comparison will be generated. Avarage for both the scores will be taken
 
 ![image](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/f485b2b3-1f50-4fa1-8512-ef9e504b69ed)
