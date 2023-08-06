@@ -28,13 +28,37 @@ Since ml part is done on colab most of libraries were be pre-installed, here are
 
 ## Client Side
 
-This is basically the frontend of our website where client/user will enter all the information regarding his vehicle like Brand,Year,Model_name,Ownership and Location and then to make the evaluation process to be precise we asked users to enter their vehicle's accelerating and deaccelerating sounds and its 4 sided view for audio and image comparison as well
+This is basically the frontend of our website where client/user will enter all the information regarding his vehicle like Brand,Year,Model_name,Ownershipn and Location and then to make the evaluation even better we asked users to enter their vehicle's accelerating and deaccelerating sounds and its 4 sided view for audio and image comparison as well
 
-![WhatsApp Image 2023-07-24 at 17 38 35](https://github.com/Jarvis-Keshav/Car_Valuations/assets/79581388/f4661e72-fc08-4132-b09b-62573a869aac)
+![Screenshot (812)](https://github.com/HarshGupta02/Car-Becho/assets/77138269/5d29e7e7-91ec-44f5-ac99-16f7794b7d0d)
+
+![Screenshot (813)](https://github.com/HarshGupta02/Car-Becho/assets/77138269/578ae53b-8649-46d2-b91a-10cec9bbbdce)
+
+![Screenshot (814)](https://github.com/HarshGupta02/Car-Becho/assets/77138269/b73be4cc-8732-47df-9752-7d84ac86ec55)
 
 ## Server Side
 
-This is where all the comparisons are done in the backend and score generated will be shown in the fronted. It heppens in few stpes:
+## Offloading CPU Bound Blocking Task
+
+Since Nodejs is single threaded, hence to prevent the main thread from blocking, we handle async operations using worker threads which is basically a child process created via the spawn method and all the Machine learning computations and the computation involving downloading the images from AWS S3 and and then using those images and audio for image and audio comparison are all done in worker or child process.
+
+```js
+const child = spawner('python', ['C:/Users/HarshGupta/Desktop/Tvs-Credit-It-Challenge/server/Image_Download_Compare.py', brand, model]);
+```
+
+## Media Storage
+
+All the images and audio of the vehicle are being uploaded to Amazon Web Services (AWS) S3 buckets. The images and audio of the new vehicles are already present in database and S3 buckets also store the media uploaded by the user. S3 buckets were preferred for media storage as the large object files like images and audio are BLOB files and storing in a nosql database like MongoDB takes a lot of space in the database and also the retreival time of media from S3 is much faster than that from MongoDB.
+
+IMAGES S3 BUCKETS:
+
+![Screenshot (805)](https://github.com/HarshGupta02/Car-Becho/assets/77138269/04af5797-3552-42a2-bf39-9169478a307b)
+
+AUDIO S3 BUCKETS:
+
+![Screenshot (806)](https://github.com/HarshGupta02/Car-Becho/assets/77138269/6f69efe4-4ed9-4d6a-85f4-2701eb0970f8)
+
+Now all the comparisons are done and score generated will be shown in the fronted. It heppens in few stpes:
 
 ### Image Comparison
 For image comparison, images provided by the user will be located in the database by their brand_model name and 4-sided view comparison will be done with the original(new) pics of that brand_model using orb and structural similarity. Score for each view comparison will be generated and avg of them is taken.
